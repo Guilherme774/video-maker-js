@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Guilherme774/video-maker-js#readme",
   "dependencies": {
-    "readline-sync": "^1.4.10"
+    "readline-sync": "^1.4.10",
+    "sbd": "^1.0.19",
+    "wikijs": "^6.4.1"
   }
 }
