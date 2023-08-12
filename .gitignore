@@ -131,3 +131,5 @@ dist
 
 # Credentials
 credentials/*.json
+
+content.json

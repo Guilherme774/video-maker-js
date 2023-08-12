@@ -3,6 +3,7 @@ const sentenceBoundaryDetection = require('sbd');
 const watsonNLUApiKey = require('../credentials/watson-nlu.json').apikey;
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1');
 const { IamAuthenticator } = require('ibm-watson/auth');
+const state = require('./state.js');
 
 const nlu = new NaturalLanguageUnderstandingV1({
   authenticator: new IamAuthenticator({ apikey: watsonNLUApiKey }),
@@ -12,11 +13,15 @@ const nlu = new NaturalLanguageUnderstandingV1({
 
 
 
-async function robot(content) {
+async function robot() {
+    const content = state.load();
+
     await fetchContentFromWikipedia(content);
     breakContentIntoSentences(content);
     limitMaximumSentences(content);
     await fetchKeywordsOfAllSentences(content);
+
+    state.save(content);
 
     async function fetchContentFromWikipedia(content) {
         const wikiepediaContent = await wiki().page(content.searchTerm)
